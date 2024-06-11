@@ -109,5 +109,51 @@
         "tier": "--"
       }
     }
+  },
+  "a5fd7f19-7044-462e-b501-200cb57c60e8": {
+    "timed": true,
+    "story ID": "a5fd7f19-7044-462e-b501-200cb57c60e8",
+    "title": {
+      "_default": "MFP 100 Deloris Johnson Nason 9-22-2011"
+    },
+    "media": {
+      "audio": "",
+      "video": "https://www.youtube.com/watch?v=Nh61EkUVPA0"
+    },
+    "languages": [],
+    "date_created": "",
+    "date_uploaded": "6/6/2024",
+    "source": {
+      "_default": ""
+    },
+    "description": "",
+    "genre": "",
+    "author": "",
+    "glosser": "",
+    "speakers": [],
+    "xml_file_name": "MFP 100 Deloris Johnson Nason 9-22-2011.eaf",
+    "source_filetype": "ELAN",
+    "tier IDs": {
+      "N: ": {
+        "subdivided": false
+      },
+      "B: ": {
+        "subdivided": false
+      },
+      "W: ": {
+        "subdivided": false
+      }
+    },
+    "speaker IDs": {
+      "S1": {
+        "tier": "N: "
+      },
+      "S2": {
+        "tier": "B: "
+      },
+      "S3": {
+        "tier": "W: "
+      }
+    }
   }
 }

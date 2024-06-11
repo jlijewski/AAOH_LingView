@@ -30,7 +30,7 @@ function setupTextSync() {
     function scrollIntoViewIfNeeded(target) {
         var rect = target.getBoundingClientRect();
         if (rect.bottom > window.innerHeight) {
-            target.scrollIntoView(false);
+            target.scrollIntoView(true);
         }
         if (rect.top < 0) {
             target.scrollIntoView();
@@ -39,12 +39,29 @@ function setupTextSync() {
 
     /* Sync function for files with AV */
     function sync(current_time) {
-        for (var i=0; i<ts_tag_array.length; i++) {
+        var count = 0;
+        const selected = [];
+        for (var i=1; i<ts_tag_array.length; i++) {
             // Somewhat hacky solution: decrease current_time by 0.001 to avoid highlighting before player starts
             if ((current_time-0.001 >= parseFloat(ts_start_time_array[i])/1000.0) && (current_time <= parseFloat(ts_stop_time_array[i])/1000.0)) {
-                ts_tag_array[i].setAttribute("id", "current");
-                scrollIntoViewIfNeeded($("#current")[0]);
-                highlightSentence(i); 
+                count += 1;
+                selected.push(i);
+                // if(count > 1)
+                // {
+                //     ts_tag_array[selected[1]].setAttribute("id", "current");
+                //     scrollIntoViewIfNeeded($("#current")[0]);
+                //     highlightSentence(selected[1]); 
+
+                
+                // }
+                // else
+                // {
+                //     ts_tag_array[i].setAttribute("id", "current");
+                //     scrollIntoViewIfNeeded($("#current")[0]);
+                //     highlightSentence(i); 
+
+                // }
+                
             }
             else {
                 unHighlightSentence(i);
@@ -52,6 +69,26 @@ function setupTextSync() {
                 catch (err) { }
             }
         }
+        console.log(count);
+        console.log(selected);
+
+        if(count > 1)
+        {
+            ts_tag_array[selected[1]].setAttribute("id", "current");
+            scrollIntoViewIfNeeded($("#current")[0]);
+            highlightSentence(selected[1]); 
+
+                
+        }
+        else
+        {
+            ts_tag_array[selected[0]].setAttribute("id", "current");
+            scrollIntoViewIfNeeded($("#current")[0]);
+            highlightSentence(selected[0]); 
+
+        }
+        
+        
     }
 
     window.sync = sync;
