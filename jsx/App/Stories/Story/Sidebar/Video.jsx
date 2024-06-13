@@ -9,7 +9,7 @@ export class Video extends React.Component {
 	static show() {
 		// Resize panels:
 		var extraHeight = 88; // NavBar plus footer.
-		var bodyHeight = 'calc(100% - ' + extraHeight.toString() + "px)";
+		var bodyHeight = 'calc(100% - 200px)';
 
 		$('#leftPanel').css('width', '40%');
 		$('#leftPanel').css('height', bodyHeight);

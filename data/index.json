@@ -130,29 +130,34 @@
     "genre": "",
     "author": "",
     "glosser": "",
-    "speakers": [],
+    "speakers": [
+      "Deloris Johnson Nason",
+      "Marna Weston"
+    ],
     "xml_file_name": "MFP 100 Deloris Johnson Nason 9-22-2011.eaf",
     "source_filetype": "ELAN",
     "tier IDs": {
-      "N: ": {
+      "DN:": {
         "subdivided": false
       },
       "B: ": {
         "subdivided": false
       },
-      "W: ": {
+      "MW:": {
         "subdivided": false
       }
     },
     "speaker IDs": {
       "S1": {
-        "tier": "N: "
+        "name": "Deloris Johnson Nason",
+        "tier": "DN:"
       },
       "S2": {
         "tier": "B: "
       },
       "S3": {
-        "tier": "W: "
+        "name": "Marna Weston",
+        "tier": "MW:"
       }
     }
   }
