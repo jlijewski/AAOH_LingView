@@ -2,6 +2,8 @@
 
 let player; // object for Youtube player
 
+var timeCheck = 0;
+
 /* Sets up syncing between AV file and text scrolling and highlighting. */
 function setupTextSync() {
 
@@ -40,6 +42,7 @@ function setupTextSync() {
     /* Sync function for files with AV */
     function sync(current_time) {
         var count = 0;
+        
         const selected = [];
         for (var i=1; i<ts_tag_array.length; i++) {
             // Somewhat hacky solution: decrease current_time by 0.001 to avoid highlighting before player starts
@@ -69,23 +72,44 @@ function setupTextSync() {
                 catch (err) { }
             }
         }
-        console.log(count);
-        console.log(selected);
-
-        if(count > 1)
+       
+      
+        if(timeCheck == current_time)
         {
-            ts_tag_array[selected[1]].setAttribute("id", "current");
-            scrollIntoViewIfNeeded($("#current")[0]);
-            highlightSentence(selected[1]); 
 
-                
         }
         else
         {
-            ts_tag_array[selected[0]].setAttribute("id", "current");
-            scrollIntoViewIfNeeded($("#current")[0]);
-            highlightSentence(selected[0]); 
+            timeCheck = current_time;
+        
 
+            if(count > 1)
+            {
+                try {
+                    ts_tag_array[selected[1]].setAttribute("id", "current");
+                    scrollIntoViewIfNeeded($("#current")[0]);
+                    highlightSentence(selected[1]); 
+                    
+                } catch (error) {
+                    
+                }
+                
+
+                    
+            }
+            else
+            {
+                try {
+                    ts_tag_array[selected[0]].setAttribute("id", "current");
+                    scrollIntoViewIfNeeded($("#current")[0]);
+                    highlightSentence(selected[0]); 
+                    
+                } catch (error) {
+                    
+                }
+                
+
+            }
         }
         
         
@@ -216,16 +240,34 @@ export function setupYoutubeAndTextSync() {
     }
 
     const youtubeID = youtubeMedia.getAttribute('youtube-id');
-    
-    // Initialize YouTube player: 
-    window.YT.ready(function() {
+    //Problem found with original Youtube Player setup, this function was being called before the Youtube API was ready,
+    //and window.YT was undefined
+    if (typeof window.YT !== 'undefined' && window.YT.ready) {
         player = new window.YT.Player("video", {
             height: "270",
             width: "480",
             videoId: youtubeID
         });
         player.addEventListener('onReady', onPlayerReady);
-    });
+
+    }
+    else {
+        //Temporary Solution: wait until window.YT is defined
+        setTimeout(setupYoutubeAndTextSync, 100);
+    }
+    
+    
+        // // Initialize YouTube player: 
+        // window.YT.ready(function() {
+        //     player = new window.YT.Player("video", {
+        //         height: "270",
+        //         width: "480",
+        //         videoId: youtubeID
+        //     });
+        //     player.addEventListener('onReady', onPlayerReady);
+        // });
+    
+   
 
     function onPlayerReady(event) {
         setupTextSync();

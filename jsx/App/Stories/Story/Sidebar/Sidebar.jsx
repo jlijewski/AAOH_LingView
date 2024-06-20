@@ -28,6 +28,7 @@ export function Sidebar({ metadata }) {
 			<div id="leftPanel">
 				<Title title={title} />
 				<Minibar metadata={metadata} hasVideo={false} />
+				
 			</div>
 		);
 	}

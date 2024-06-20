@@ -148,6 +148,7 @@ audio {
 table.gloss {
 	display: inline;
 	padding-right: 9px;
+	text-wrap: wrap;
 }
 
 .topRow {
@@ -157,7 +158,7 @@ table.gloss {
 td {
 	padding-left: 4px;
 	padding-right: 4px;
-	white-space: nowrap;
+	white-space: pre-wrap;
 }
 /*	MAIN.CSS
 	->	Text Display

@@ -14,6 +14,7 @@ export function Minibar({ metadata, hasVideo }) {
 	    		<Info metadata={metadata} />
 	    		<Settings tiers={metadata['tier IDs']} hasVideo={hasVideo} />
 	    		<MoreInfo metadata={metadata} />
+				
 	    	</div>
 		</div>
 	);
