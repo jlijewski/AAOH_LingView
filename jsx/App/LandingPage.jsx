@@ -10,21 +10,19 @@ import AAOH_logo4Copy from "./../../images/AAOH_logo4Copy.png";
 const landingPageJSX = {
   [ENGLISH]:
   <body>
-    <div>
-      <p>Welcome! This website is powered by <a href='https://github.com/BrownCLPS/LingView/' target="_blank" rel="noopener noreferrer">Lingview</a>. Click <a href='#/index'>"Index of Texts"</a> to see some example texts.</p>
-      <p>To customize this welcome text, edit the jsx/App/LandingPage.jsx file, then run webpack for your changes to take effect. </p>
-    </div>
-    <div id="slider">
-      <figure>
-        <img src={AAOH_logo4} ></img>
-        <img src={AAOH_logo2}></img>
-        <img src={AAOH_logo3}></img>
-        <img src={AAOH_logo4Copy}></img>
-        
-        
-      </figure>
+    
+      <div id="slider">
+        <figure>
+          <img src={AAOH_logo4} ></img>
+          <img src={AAOH_logo2}></img>
+          <img src={AAOH_logo3}></img>
+          <img src={AAOH_logo4Copy}></img>
+          
+          
+        </figure>
 
-    </div>
+      </div>
+    
   </body>
     ,
   [ESPANOL]:
