@@ -9,11 +9,12 @@ import AAOH_logo4Copy from "./../../images/AAOH_logo4Copy.png";
 
 const aboutPageJSX = {
   [ENGLISH]:
-  <body class="about">
-  <div class="content">
+  <body className='about' style={{margin:0}}>
+  <div  style={{margin:0}}>
   <div id="header1">
-    <h1 id="header1Text">Welcome to Reanimating African American Histories of the Gulf South</h1>
+    <div id="header1Text">Reanimating African American Histories of the Gulf South</div>
   </div>
+
     
   <div id="slider">
     <figure>
@@ -26,6 +27,21 @@ const aboutPageJSX = {
     </figure>
 
   </div>
+  <div id="aboutInfo">Samuel Proctor Oral History Program (SPOHP), UF Department of Linguistics, and George A. Smathers 
+      Libraries are proud to announce the establishment of an NEH-funded collaborative project entitled, 
+      Reanimating African American Oral Histories of the Gulf South (RGS). The project’s 
+      foundation is the Joel Buchanan African American Oral History Archive, which is ongoing and 
+      currently contains over 1000 interviews with African Americans in the Gulf South, a population absent from many other oral 
+      history collections. Contained within this archive are the stories of African Americans who lived through the transatlantic slave trade, 
+      the Jim Crow era, the Civil Rights Movement, the wars of the 20th Century, and the first Black presidency, along with the voices of those typically 
+      marginalized in the study of African American histories such as the Gullah-Geechee and Black Seminoles. This project emphasizes the aforementioned 
+      subjects and an extensive analysis of African American Language in the Gulf South (AALGS). The RGS project organizes these elements into a curriculum 
+      with enormous potential for educators and their students, or in alternative educational environments such as teacher, adult, senior, or museum education programs.</div>
+  </div>
+  <div id='line'></div>
+  <div id='linkText'>
+    <p>Check out the official <a href="https://www.youtube.com/channel/UCPyiAStrnYuTEqCZ03Jp7rQ" target="_blank">AAOH Youtube Channel</a>
+    for videos of all interviews and extra content!</p>
   </div>
   
 

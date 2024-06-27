@@ -5,20 +5,25 @@ body {
 	font-size: 1.1em;
 	font-weight: 400;
 	background-color: rgb(242, 237, 237);
-	width: 100%;
+	 width: 100%;
 	height: 100%;
+	
 	overflow:auto;
 }
 
 
 
 #header1 {
-	margin: 0px;
+	margin: 0px !important;
 	padding: 0px;
 
 	background-color: rgb(189, 221, 246);
 	width: 100%;
-	height: 300px;
+	height: 200px;
+	max-width: 100;
+	position : absolute;
+	top:75px;
+	left : 0px;
 	
 }
 h1 {
@@ -29,12 +34,57 @@ h1 {
 	text-wrap:wrap ;
 
 }
-#header1text {
+#header1Text {
 	font-family: "Hammersmith One", sans-serif;
-	font-size: 0.7em;
-	font-weight: 300;
-	max-width: 100px;
+	font-size: 1.9em;
+	font-weight: 800;
+	width: 900px;
+	height: 200px;
 	text-wrap:wrap ;
+	position : absolute;
+	top:60px;
+	left : 400px;
+	text-align: center;
+
+}
+#aboutInfo {
+	font-family: "Hammersmith One", sans-serif;
+	font-size: 1.2em;
+	font-weight: 500;
+	width: 1600px;
+	height: 300px;
+	text-wrap:wrap ;
+	position : absolute;
+	top:325px;
+	left : 125px;
+	text-align: center;
+
+}
+#line {
+	margin: 0px ;
+	padding: 0px;
+	background-color: rgb(22, 114, 185);
+	width: 90%;
+	height: 5px;
+	max-width: 100;
+	position : absolute;
+	top:600px;
+	left : 80px;
+
+}
+#linkText {
+	font-family: "Hammersmith One", sans-serif;
+	margin: 0px ;
+	padding: 0px;
+	font-size: 0.9em;
+	font-weight: 500;
+	text-align: center;
+	width: 90%;
+	height: 5px;
+	max-width: 100;
+	position : absolute;
+	top:620px;
+	left : 80px;
 
 }
 
@@ -43,7 +93,7 @@ h1 {
 	width : 350px;
 	height : 200px;
 	position : absolute;
-	top:100px;
+	top:80px;
 	right : 50px;
 	
 
@@ -90,12 +140,14 @@ h1 {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+	font-style: italic;
 }
 #navbar a {
     color: white;
 }
 #navTitle {
 	margin-right: 1em;
+	
 }
 #navTitle a {
     font-weight: 700;
@@ -134,7 +186,10 @@ h1 {
 	margin-top: 20px;
 	margin-left: 40px;
 	margin-right: 40px;
-	margin-bottom: 50px; /* space for footer plus extra whitespace */
+	margin-bottom: 50px; /*space for footer plus extra whitespace*/
+}
+.about .content {
+	margin: 0!important;
 }
 
 #leftPanel {
@@ -143,7 +198,7 @@ h1 {
 	overflow-x: hidden;
 	overflow-y: auto;
 	height: calc(100% - 88px); /* Minus the navBar and the footer. */
-	background-color: rgb(164, 193, 231);
+	background-color: rgb(189, 221, 246);
 }
 
 footer {
