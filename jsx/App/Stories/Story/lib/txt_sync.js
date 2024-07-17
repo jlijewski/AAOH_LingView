@@ -42,13 +42,16 @@ function setupTextSync() {
     /* Sync function for files with AV */
     function sync(current_time) {
         var count = 0;
+        ts_stop_time_array[0] = ts_start_time_array[1];
         
         const selected = [];
-        for (var i=1; i<ts_tag_array.length; i++) {
+        for (var i=0; i<ts_tag_array.length; i++) {
             // Somewhat hacky solution: decrease current_time by 0.001 to avoid highlighting before player starts
             if ((current_time-0.001 >= parseFloat(ts_start_time_array[i])/1000.0) && (current_time <= parseFloat(ts_stop_time_array[i])/1000.0)) {
                 count += 1;
                 selected.push(i);
+                console.log(ts_start_time_array[i]);
+                console.log(ts_stop_time_array[i]);
                 // if(count > 1)
                 // {
                 //     ts_tag_array[selected[1]].setAttribute("id", "current");
