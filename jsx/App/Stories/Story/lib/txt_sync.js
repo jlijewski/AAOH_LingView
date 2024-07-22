@@ -4,6 +4,9 @@ let player; // object for Youtube player
 
 var timeCheck = 0;
 
+let tooltipContent;
+let currentTarget;
+
 /* Sets up syncing between AV file and text scrolling and highlighting. */
 function setupTextSync() {
 
@@ -28,6 +31,35 @@ function setupTextSync() {
         ts_tag_array = document.getElementsByClassName("untimedBlock");
     }
 
+    function createTooltip() {
+        if(!tooltipContent)
+        {
+
+            tooltipContent = document.createElement('div');
+            tooltipContent.classList.add('tooltip-content');
+            tooltipContent.textContent = 'Example Text';
+            document.body.appendChild(tooltipContent);
+        }
+        
+    }
+    function removeTooltip() {
+
+        try {
+            tooltipContent.style.visibility = 'hidden';
+            tooltipContent.style.opacity = '0';
+            setTimeout(() => {
+                if (tooltipContent) {
+                    document.body.removeChild(tooltipContent);
+                    tooltipContent = null;
+                }
+            }, 300);
+            
+        } catch (error) {
+            
+        }
+        
+    }
+
     /* Scrolls to a selected sentence. */
     function scrollIntoViewIfNeeded(target) {
         var rect = target.getBoundingClientRect();
@@ -37,6 +69,32 @@ function setupTextSync() {
         if (rect.top < 0) {
             target.scrollIntoView();
         } 
+        console.log(target)
+        
+        target.addEventListener('mouseenter', (event) => {
+            createTooltip();
+            tooltipContent.style.visibility = 'visible';
+            tooltipContent.style.opacity = '1';
+        });
+
+        document.addEventListener('mousemove', (event) => {
+
+            if (!tooltipContent) return;
+
+            const tooltipX = event.clientX + 10; // Offset from the cursor
+            const tooltipY = event.clientY + 10;
+
+            tooltipContent.style.left = `${tooltipX + window.scrollX}px`;
+            tooltipContent.style.top = `${tooltipY + window.scrollY}px`;
+
+            
+
+        });
+
+        target.addEventListener('mouseleave', () => {
+            
+            removeTooltip();
+        });
     }
 
     /* Sync function for files with AV */
@@ -50,8 +108,8 @@ function setupTextSync() {
             if ((current_time-0.001 >= parseFloat(ts_start_time_array[i])/1000.0) && (current_time <= parseFloat(ts_stop_time_array[i])/1000.0)) {
                 count += 1;
                 selected.push(i);
-                console.log(ts_start_time_array[i]);
-                console.log(ts_stop_time_array[i]);
+                // console.log(ts_start_time_array[i]);
+                // console.log(ts_stop_time_array[i]);
                 // if(count > 1)
                 // {
                 //     ts_tag_array[selected[1]].setAttribute("id", "current");
