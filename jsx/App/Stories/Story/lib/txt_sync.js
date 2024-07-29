@@ -62,14 +62,18 @@ function setupTextSync() {
 
     /* Scrolls to a selected sentence. */
     function scrollIntoViewIfNeeded(target) {
+        
         var rect = target.getBoundingClientRect();
+        var text =target.querySelector('.topRow');
+        
+        text.classList.add('highlight');
         if (rect.bottom > window.innerHeight) {
             target.scrollIntoView(true);
         }
         if (rect.top < 0) {
             target.scrollIntoView();
         } 
-        console.log(target)
+        
         
         target.addEventListener('mouseenter', (event) => {
             createTooltip();
