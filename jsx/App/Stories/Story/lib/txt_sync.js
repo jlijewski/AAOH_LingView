@@ -1,11 +1,13 @@
 // Based on http://community.village.virginia.edu/etst/
 
+import {highlightIfNeeded} from './annotate.js';
+
 let player; // object for Youtube player
 
 var timeCheck = 0;
 
-let tooltipContent;
-let currentTarget;
+
+
 
 /* Sets up syncing between AV file and text scrolling and highlighting. */
 function setupTextSync() {
@@ -31,42 +33,13 @@ function setupTextSync() {
         ts_tag_array = document.getElementsByClassName("untimedBlock");
     }
 
-    function createTooltip() {
-        if(!tooltipContent)
-        {
-
-            tooltipContent = document.createElement('div');
-            tooltipContent.classList.add('tooltip-content');
-            tooltipContent.textContent = 'Example Text';
-            document.body.appendChild(tooltipContent);
-        }
-        
-    }
-    function removeTooltip() {
-
-        try {
-            tooltipContent.style.visibility = 'hidden';
-            tooltipContent.style.opacity = '0';
-            setTimeout(() => {
-                if (tooltipContent) {
-                    document.body.removeChild(tooltipContent);
-                    tooltipContent = null;
-                }
-            }, 300);
-            
-        } catch (error) {
-            
-        }
-        
-    }
 
     /* Scrolls to a selected sentence. */
     function scrollIntoViewIfNeeded(target) {
         
-        var rect = target.getBoundingClientRect();
-        var text =target.querySelector('.topRow');
-        
-        text.classList.add('highlight');
+       highlightIfNeeded(target);
+       var rect = target.getBoundingClientRect();
+      
         if (rect.bottom > window.innerHeight) {
             target.scrollIntoView(true);
         }
@@ -75,30 +48,7 @@ function setupTextSync() {
         } 
         
         
-        target.addEventListener('mouseenter', (event) => {
-            createTooltip();
-            tooltipContent.style.visibility = 'visible';
-            tooltipContent.style.opacity = '1';
-        });
-
-        document.addEventListener('mousemove', (event) => {
-
-            if (!tooltipContent) return;
-
-            const tooltipX = event.clientX + 10; // Offset from the cursor
-            const tooltipY = event.clientY + 10;
-
-            tooltipContent.style.left = `${tooltipX + window.scrollX}px`;
-            tooltipContent.style.top = `${tooltipY + window.scrollY}px`;
-
-            
-
-        });
-
-        target.addEventListener('mouseleave', () => {
-            
-            removeTooltip();
-        });
+        
     }
 
     /* Sync function for files with AV */
