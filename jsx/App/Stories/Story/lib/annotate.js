@@ -35,6 +35,7 @@ let tooltipContent;
 let currentTarget;
 let currTitle;
 const testEmit = dataEmitter;
+let currPath;
 try {
     dataEmitter.on('newStory', (data) => {
         console.log('Data received:', data);
@@ -49,28 +50,26 @@ try {
 
 console.log(testEmit);
 
-function csvSplit(csvContent) {
+function parseCSV(csvContent) {
     const data = csvContent.split('\n').map(row => row.split(','));
 
     return data;
 
 }
-function csvSearch(data, text) {
+function searchCSV(data,columnName, text) {
 
-    for (let i = 0; i < data.length; i++) {
-        const row = data[i];
-        for (let j = 0; j < row.length; j++) {
-            if (row[j].toLowerCase().includes(searchTerm.toLowerCase())) {
-                console.log(`Found "${searchTerm}" in row ${i + 1}, column ${j + 1}`);
-                
-                return; 
-            }
-        }
+    const headers = data[0];
+    const columnIndex = headers.indexOf(columnName);
+    if (columnIndex === -1) {
+      return [];
     }
-
+  
+    const result = data.slice(1).filter(row => row[columnIndex] === text);
+    return result;
+  }
     
 
-}
+
 
 
 
@@ -105,11 +104,25 @@ function removeTooltip() {
 
 export function highlightIfNeeded(target)
 {
+    //console.log("got to highlight function");
     //const index =  import('~./data/index.json').default;
-   searchFiles(dir,currTitle);
+   //searchFiles(dir,currTitle);
 
     var rect = target.getBoundingClientRect();
     var text =target.querySelector('.topRow');
+
+  
+    currPath = '/data/csv_files/' + currTitle;
+    console.log(currPath);
+
+    fetch(currTitle)
+    .then(response => response.text())
+    .then(data => {
+        const rows = parseCSV(data);
+        const result = searchCSV(rows, 'name');
+        console.log(result);
+    })
+    .catch(error => console.error('Error fetching CSV:', error));
 
     
     
