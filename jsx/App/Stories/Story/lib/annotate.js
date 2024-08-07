@@ -3,7 +3,7 @@ import  dataEmitter  from './emitter/dataEmitter.js';
 
 //const fs = require('fs');
 //const path = require('path');
-const dir = "/data/csv_files";
+const dir = "./csvFiles";
 
 // function searchFiles(dir, fileName) {
 //     fs.readdir(dir, (err, files) => {
@@ -112,7 +112,7 @@ export function highlightIfNeeded(target)
     var text =target.querySelector('.topRow');
 
   
-    currPath = '/data/csv_files/' + currTitle;
+    currPath = './csvFiles/' + currTitle;
     console.log(currPath);
 
     fetch(currTitle)
