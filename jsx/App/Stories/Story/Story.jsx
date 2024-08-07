@@ -3,12 +3,16 @@ import { CenterPanel } from './Display/CenterPanel.jsx';
 import { Video } from './Sidebar/Video.jsx';
 import { setupYoutubeAndTextSync } from './lib/txt_sync';
 import { Loader } from '../Loader.jsx';
+import dataEmitter from './lib/emitter/dataEmitter.js'; 
+
+
 
 export class Story extends React.Component {
     constructor(props) {
         super(props);
         this.state = { story: null };
       }
+
     async componentDidMount() {
         const storyJSON = await import(`~./data/json_files/${this.props.storyID}.json`);
         this.setState({ story: storyJSON.default });
@@ -22,13 +26,16 @@ export class Story extends React.Component {
             Video.hide();
         }
     }
-
+    
     render() {
         if (!this.state.story) {
             return <Loader />;
         }
+        
+       
 
         const story = this.state.story;
+        dataEmitter.emit('newStory', story['metadata']['title']['_default']);
         const sentences = story['sentences'];
         const timed = (story['metadata']['timed']);
         let footer = null;
@@ -40,6 +47,7 @@ export class Story extends React.Component {
                 footer = <div id="footer"><audio data-live="true" controls controlsList="nodownload" id="audio" src={audioFilePath}/></div>;
             } else {
                 const mediaName = media['video'];
+                
                 if (isVideoFilePathYoutube(mediaName)) {
                     const youtubeID = getYoutubeID(mediaName);
                     footer = <div hidden id="footer"><audio data-live="true" is-youtube="true" controls controlsList="nodownload" id="video-youtube" youtube-id={youtubeID}/></div>;

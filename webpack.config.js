@@ -57,5 +57,6 @@ module.exports = {
       jQuery: 'jquery'
     })
   ],
-	stats: 'errors-only'
+	stats: 'errors-only',
+  devtool: 'source-map'
 };
