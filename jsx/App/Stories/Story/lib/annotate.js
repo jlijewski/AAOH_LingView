@@ -112,7 +112,7 @@ export function highlightIfNeeded(target)
     var text =target.querySelector('.topRow');
 
   
-    currPath = './csvFiles/' + currTitle;
+    currPath = 'jsx/App/Stories/Story/lib/csvFiles/' + currTitle;
     console.log(currPath);
 
     fetch(currTitle)
