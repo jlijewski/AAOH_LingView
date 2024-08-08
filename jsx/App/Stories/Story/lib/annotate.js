@@ -115,7 +115,7 @@ export function highlightIfNeeded(target)
     currPath = 'jsx/App/Stories/Story/lib/csvFiles/' + currTitle;
     console.log(currPath);
 
-    fetch(currTitle)
+    fetch(currPath)
     .then(response => response.text())
     .then(data => {
         const rows = parseCSV(data);
