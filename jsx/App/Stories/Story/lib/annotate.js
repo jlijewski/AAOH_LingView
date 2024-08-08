@@ -112,12 +112,13 @@ export function highlightIfNeeded(target)
     var text =target.querySelector('.topRow');
 
   
-    currPath = 'jsx/App/Stories/Story/lib/csvFiles/' + currTitle;
+    currPath = 'data/csv_files/' + currTitle;
     console.log(currPath);
 
     fetch(currPath)
     .then(response => response.text())
     .then(data => {
+        console.log(data);
         const rows = parseCSV(data);
         const result = searchCSV(rows, 'name');
         console.log(result);
