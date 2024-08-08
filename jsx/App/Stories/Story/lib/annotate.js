@@ -51,7 +51,7 @@ try {
 console.log(testEmit);
 
 function parseCSV(csvContent) {
-    const data = csvContent.split('\n').map(row => row.split(','));
+    const data = csvContent.trim().split('\n').map(row => row.split(','));
 
     return data;
 
@@ -63,8 +63,8 @@ function searchCSV(data,columnName, text) {
     if (columnIndex === -1) {
       return [];
     }
-  
-    const result = data.slice(1).filter(row => row[columnIndex] === text);
+    const lowerCaseSearchText = text.toLowerCase();
+    const result = data.filter(row => row[columnIndex] && row[columnIndex].toLowerCase().includes(lowerCaseSearchText));
     return result;
   }
     
@@ -118,9 +118,9 @@ export function highlightIfNeeded(target)
     fetch(currPath)
     .then(response => response.text())
     .then(data => {
-        console.log(data);
+        //console.log(data);
         const rows = parseCSV(data);
-        const result = searchCSV(rows, 'name');
+        const result = searchCSV(rows, 'text',text);
         console.log(result);
     })
     .catch(error => console.error('Error fetching CSV:', error));
