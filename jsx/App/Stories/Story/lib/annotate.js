@@ -6,7 +6,7 @@ import  dataEmitter  from './emitter/dataEmitter.js';
 const dir = "./csvFiles";
 let lastSearchText = '';
 let features = ['Text','Null copula','Person/num. agreement','Multiple negators','Existential it/dey','Perfect done','Remote past BIN', 'Habitual be'];
-  
+let found = false;
 
 
 
@@ -102,7 +102,7 @@ export function highlightIfNeeded(target)
     const textContents = [];
     textDivs.forEach(div => {
         textContents.push(div.textContent);
-        div.classList.add('highlight');
+        
         //console.log(div.textContent);
     });
     currPath = 'data/csv_files/' + currTitle;
@@ -129,11 +129,32 @@ export function highlightIfNeeded(target)
                         for (let j = 0; j < result[0].length; j++) {
                             if(result[0][j] == "1")
                             {
-                                
+                                found = true;
                                 console.log(result);
                                 console.log(features[j]);
                             }
                             
+                        }
+                        if(found)
+                        {
+                            found = false;
+                            target.addEventListener('mouseenter', (event) => {
+                                createTooltip();
+                                tooltipContent.style.visibility = 'visible';
+                                tooltipContent.style.opacity = '1';
+                            });
+
+                            target.addEventListener('mouseleave', () => {
+        
+                                removeTooltip();
+                            });
+                            textDivs.forEach(div => {
+                                
+                                div.classList.add('highlight');
+                                //console.log(div.textContent);
+                            });
+
+
                         }
                     }   
 
@@ -152,11 +173,7 @@ export function highlightIfNeeded(target)
     
 
 
-    target.addEventListener('mouseenter', (event) => {
-        createTooltip();
-        tooltipContent.style.visibility = 'visible';
-        tooltipContent.style.opacity = '1';
-    });
+    
 
     document.addEventListener('mousemove', (event) => {
 
@@ -172,9 +189,6 @@ export function highlightIfNeeded(target)
 
     });
 
-    target.addEventListener('mouseleave', () => {
-        
-        removeTooltip();
-    });
+    
 }
 
