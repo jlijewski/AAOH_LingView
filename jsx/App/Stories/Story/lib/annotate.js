@@ -4,29 +4,8 @@ import  dataEmitter  from './emitter/dataEmitter.js';
 //const fs = require('fs');
 //const path = require('path');
 const dir = "./csvFiles";
-
-// function searchFiles(dir, fileName) {
-//     fs.readdir(dir, (err, files) => {
-//       if (err) {
-//         console.error(`Error reading directory ${dir}:`, err);
-//         return;
-//       }
-  
-//       files.forEach(file => {
-//         const fullPath = path.join(dir, file);
-//         fs.stat(fullPath, (err, stats) => {
-//           if (err) {
-//             console.error(`Error stating file ${fullPath}:`, err);
-//             return;
-//           }
-  
-//            if (stats.isFile() && path.basename(fullPath) === fileName) {
-//             console.log(`File found: ${fullPath}`);
-//           }
-//         });
-//       });
-//     });
-//   }
+let lastSearchText = '';
+let features = ['Text','Null copula','Person/num. agreement','Multiple negators','Existential it/dey','Perfect done','Remote past BIN', 'Habitual be'];
   
 
 
@@ -38,7 +17,7 @@ const testEmit = dataEmitter;
 let currPath;
 try {
     dataEmitter.on('newStory', (data) => {
-        console.log('Data received:', data);
+        //console.log('Data received:', data);
         
         currTitle = data + ".csv";
       });
@@ -48,10 +27,18 @@ try {
 }
 
 
-console.log(testEmit);
+//console.log(testEmit);
+
+function preprocessText(text) {
+    return text
+      .replace(/;/g, '')              // Remove semicolons
+      .replace(/[-–—]/g, ' ')              // Removes Hyphens
+      .replace(/\s+/g, ' ')           // Replace multiple spaces with a single space
+      .trim();                        // Trim leading and trailing spaces
+  }
 
 function parseCSV(csvContent) {
-    const data = csvContent.trim().split('\n').map(row => row.split(','));
+    const data = csvContent.trim().split('\n').map(row => row.split(',').map(cell => preprocessText(cell)));
 
     return data;
 
@@ -60,6 +47,7 @@ function searchCSV(data,columnName, text) {
 
     const headers = data[0];
     const columnIndex = headers.indexOf(columnName);
+    //console.log(columnIndex);
     if (columnIndex === -1) {
       return [];
     }
@@ -73,13 +61,13 @@ function searchCSV(data,columnName, text) {
 
 
 
-function createTooltip() {
+function createTooltip(text) {
     if(!tooltipContent)
     {
 
         tooltipContent = document.createElement('div');
         tooltipContent.classList.add('tooltip-content');
-        tooltipContent.textContent = 'Example Text';
+        tooltipContent.textContent = text;
         document.body.appendChild(tooltipContent);
     }
     
@@ -109,25 +97,59 @@ export function highlightIfNeeded(target)
    //searchFiles(dir,currTitle);
 
     var rect = target.getBoundingClientRect();
-    var text =target.querySelector('.topRow');
-
-  
+    var textDivs =target.querySelectorAll('.topRow');
+    //console.log(textDivs);
+    const textContents = [];
+    textDivs.forEach(div => {
+        textContents.push(div.textContent);
+        div.classList.add('highlight');
+        //console.log(div.textContent);
+    });
     currPath = 'data/csv_files/' + currTitle;
-    console.log(currPath);
+    
 
     fetch(currPath)
     .then(response => response.text())
     .then(data => {
+
         //console.log(data);
         const rows = parseCSV(data);
-        const result = searchCSV(rows, 'text',text);
-        console.log(result);
+        //console.log(rows);
+        for (let i = 0; i < textContents.length; i++) {
+            
+            if (textContents[i].trim() !== "") {
+                if(lastSearchText != textContents[i])
+                {
+                    lastSearchText = textContents[i];
+                    const result = searchCSV(rows, 'Text',textContents[i]);
+                    //console.log(result);
+                    //console.log(rows);
+                    if(result[0] !== undefined)
+                    {
+                        for (let j = 0; j < result[0].length; j++) {
+                            if(result[0][j] == "1")
+                            {
+                                
+                                console.log(result);
+                                console.log(features[j]);
+                            }
+                            
+                        }
+                    }   
+
+                }
+            }
+            
+        }
+       
+        
+        
     })
     .catch(error => console.error('Error fetching CSV:', error));
 
     
     
-    text.classList.add('highlight');
+    
 
 
     target.addEventListener('mouseenter', (event) => {

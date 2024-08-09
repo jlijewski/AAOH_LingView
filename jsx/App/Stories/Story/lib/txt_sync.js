@@ -55,6 +55,12 @@ function setupTextSync() {
     function sync(current_time) {
         var count = 0;
         ts_stop_time_array[0] = ts_start_time_array[1];
+
+        for(var i = 0;i<ts_tag_array.length - 1; i++ )
+        {
+            ts_stop_time_array[i] = ts_start_time_array[i+1];
+
+        }
         
         const selected = [];
         for (var i=0; i<ts_tag_array.length; i++) {
