@@ -7,6 +7,8 @@ const dir = "./csvFiles";
 let lastSearchText = '';
 let features = ['Text','Null copula','Person/num. agreement','Multiple negators','Existential it/dey','Perfect done','Remote past BIN', 'Habitual be'];
 let found = false;
+let currFeatures = [];
+let featureTagText = '';
 
 
 
@@ -132,14 +134,32 @@ export function highlightIfNeeded(target)
                                 found = true;
                                 console.log(result);
                                 console.log(features[j]);
+                                currFeatures.push(features[j]);
                             }
                             
                         }
                         if(found)
                         {
+                            featureTagText = "This Sentence Contains the Following Features: "
+                            
+                            for (let i = 0; i < currFeatures.length; i++) {
+                                if(i === currFeatures.length -1)
+                                {
+                                    featureTagText += currFeatures[i];
+
+                                }
+                                else{
+                                    featureTagText += currFeatures[i] + ', ';
+                                }
+                                
+                                    
+                            }
+
+                            
+                            
                             found = false;
                             target.addEventListener('mouseenter', (event) => {
-                                createTooltip();
+                                createTooltip(featureTagText);
                                 tooltipContent.style.visibility = 'visible';
                                 tooltipContent.style.opacity = '1';
                             });
@@ -155,6 +175,9 @@ export function highlightIfNeeded(target)
                             });
 
 
+                        }else{
+                            currFeatures = [];
+                            featureTagText = '';
                         }
                     }   
 
