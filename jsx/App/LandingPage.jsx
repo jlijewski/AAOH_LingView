@@ -11,17 +11,18 @@ const landingPageJSX = {
   [ENGLISH]:
   <body>
     
-      <div id="slider">
-        <figure>
-          <img src={AAOH_logo4} ></img>
-          <img src={AAOH_logo2}></img>
-          <img src={AAOH_logo3}></img>
-          <img src={AAOH_logo4Copy}></img>
-          
-          
-        </figure>
+      
+      <div id="embed-container">
 
+        <iframe
+          src="https://jlijewski.github.io/LingView/#/story/a5fd7f19-7044-462e-b501-200cb57c60e8"
+          width="100%"
+          height="600px"
+          style={{ border: 'none' }}
+          title="Embedded Content"
+        ></iframe>
       </div>
+
     
   </body>
     ,
