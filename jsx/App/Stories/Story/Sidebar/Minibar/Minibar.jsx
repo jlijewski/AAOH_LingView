@@ -2,6 +2,7 @@ import { Info } from './Info/Info.jsx';
 import { MoreInfo } from './Info/Info.jsx';
 import { Settings } from './Settings/Settings.jsx';
 import { Descriptions } from './Descriptions/Descriptions.jsx';
+import { Features } from './features.jsx';
 
 export function Minibar({ metadata, hasVideo }) {
 	// I/P: metadata, in JSON format
@@ -18,6 +19,8 @@ export function Minibar({ metadata, hasVideo }) {
 				<p></p>
 	    		<Settings tiers={metadata['tier IDs']} hasVideo={hasVideo} />
 	    		<MoreInfo metadata={metadata} />
+				<Features/>
+				
 				
 	    	</div>
 		</div>

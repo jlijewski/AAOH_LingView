@@ -6,6 +6,10 @@ let player; // object for Youtube player
 
 var timeCheck = 0;
 
+let ts_tag_array = []; // Array that stores all timestamps/sentence id
+let ts_start_time_array = [];
+let ts_stop_time_array = [];
+
 
 
 
@@ -15,9 +19,7 @@ function setupTextSync() {
     // "media" is undefined if there are no AV files associated with the current text. 
     const media = document.querySelectorAll("[data-live='true']")[0];
     
-    let ts_tag_array = []; // Array that stores all timestamps/sentence id
-    let ts_start_time_array = [];
-    let ts_stop_time_array = [];
+
 
     if (media) {
         // For files with AV files, link the media file with the syncing functions.
@@ -37,7 +39,7 @@ function setupTextSync() {
     /* Scrolls to a selected sentence. */
     function scrollIntoViewIfNeeded(target) {
         
-       highlightIfNeeded(target);
+       //highlightIfNeeded(target);
        var rect = target.getBoundingClientRect();
       
         if (rect.bottom > window.innerHeight) {
@@ -50,9 +52,62 @@ function setupTextSync() {
         
         
     }
+    function featureDetect(current_time)
+    {
+
+        if(current_time > 0)
+        {
+                const divs = document.querySelectorAll('div.labeledSentence');
+                //console.log(divs)
+                
+                let previousDiv = null;
+                divs.forEach(div => {
+                    //console.log(div.textContent);
+
+                    if (div.textContent.includes('AAOH Feature:')) 
+                    {
+                        div.style.fontStyle = 'italic';
+                        if(previousDiv !== null)
+                        {
+                            if(previousDiv.textContent.includes('AAOH Feature:'))
+                            {
+                                previousDiv.style.fontStyle = 'italic';
+                            }
+                            else{
+                                previousDiv.style.backgroundColor = 'yellow'; 
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    previousDiv = div
+                    // var textDivs =div.querySelectorAll('textContent');
+                    // console.log(textDivs);
+                    // let previousDiv = null;
+                    // //console.log(textDivs);
+                    // const textContents = [];
+                    // textDivs.forEach(div => {
+                    //     textContents.push(div.textContent);
+                        
+                    //     let firstTwoWords = div.textContent.split(' ').slice(0, 2).join(' ');
+                    //     if(firstTwoWords === 'AAOH Feature:')
+                    //     {
+                    //         div.style.backgroundColor = 'yellow'; 
+                            
+                    //         previousDiv.style.fontStyle = 'italic'; 
+                    //     }
+
+                    //     previousDiv = div
+                    //  });
+                });
+        }
+
+    }
 
     /* Sync function for files with AV */
     function sync(current_time) {
+ 
         var count = 0;
         ts_stop_time_array[0] = ts_start_time_array[1];
 
@@ -236,6 +291,7 @@ function setupTextSync() {
             setInterval(function(){
                 const currentTime = player.playerInfo.currentTime;
                 sync(currentTime);
+                featureDetect(currentTime);
             }, 100);
         }
         
@@ -294,3 +350,4 @@ export function setupYoutubeAndTextSync() {
         setupTextSync();
     }
 }
+export  {ts_tag_array,player};

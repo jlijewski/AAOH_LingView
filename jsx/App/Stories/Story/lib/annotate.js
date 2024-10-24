@@ -100,96 +100,106 @@ export function highlightIfNeeded(target)
 
     var rect = target.getBoundingClientRect();
     var textDivs =target.querySelectorAll('.topRow');
+    let previousDiv = null;
     //console.log(textDivs);
     const textContents = [];
     textDivs.forEach(div => {
         textContents.push(div.textContent);
         
-        //console.log(div.textContent);
+        let firstTwoWords = div.textContent.split(' ').slice(0, 2).join(' ');
+        if(firstTwoWords === 'AAOH Feature:')
+        {
+            div.style.backgroundColor = 'yellow'; 
+            
+            previousDiv.style.fontStyle = 'italic'; 
+        }
+
+        previousDiv = div
+        
     });
     currPath = 'data/csv_files/' + currTitle;
     
 
-    fetch(currPath)
-    .then(response => response.text())
-    .then(data => {
+    // fetch(currPath)
+    // .then(response => response.text())
+    // .then(data => {
 
-        //console.log(data);
-        const rows = parseCSV(data);
-        //console.log(rows);
-        for (let i = 0; i < textContents.length; i++) {
+    //     //console.log(data);
+    //     const rows = parseCSV(data);
+    //     //console.log(rows);
+    //     for (let i = 0; i < textContents.length; i++) {
             
-            if (textContents[i].trim() !== "") {
-                if(lastSearchText != textContents[i])
-                {
-                    lastSearchText = textContents[i];
-                    const result = searchCSV(rows, 'Text',textContents[i]);
-                    //console.log(result);
-                    //console.log(rows);
-                    if(result[0] !== undefined)
-                    {
-                        for (let j = 0; j < result[0].length; j++) {
-                            if(result[0][j] == "1")
-                            {
-                                found = true;
-                                console.log(result);
-                                console.log(features[j]);
-                                currFeatures.push(features[j]);
-                            }
+    //         if (textContents[i].trim() !== "") {
+    //             if(lastSearchText != textContents[i])
+    //             {
+    //                 lastSearchText = textContents[i];
+    //                 const result = searchCSV(rows, 'Text',textContents[i]);
+    //                 //console.log(result);
+    //                 //console.log(rows);
+    //                 if(result[0] !== undefined)
+    //                 {
+    //                     for (let j = 0; j < result[0].length; j++) {
+    //                         if(result[0][j] == "1")
+    //                         {
+    //                             found = true;
+    //                             console.log(result);
+    //                             console.log(features[j]);
+    //                             currFeatures.push(features[j]);
+    //                         }
                             
-                        }
-                        if(found)
-                        {
-                            featureTagText = "This Sentence Contains the Following Features: "
+    //                     }
+    //                     if(found)
+    //                     {
+    //                         featureTagText = "This Sentence Contains the Following Features: "
                             
-                            for (let i = 0; i < currFeatures.length; i++) {
-                                if(i === currFeatures.length -1)
-                                {
-                                    featureTagText += currFeatures[i];
+    //                         for (let i = 0; i < currFeatures.length; i++) {
+    //                             if(i === currFeatures.length -1)
+    //                             {
+    //                                 featureTagText += currFeatures[i];
 
-                                }
-                                else{
-                                    featureTagText += currFeatures[i] + ', ';
-                                }
+    //                             }
+    //                             else{
+    //                                 featureTagText += currFeatures[i] + ', ';
+    //                             }
                                 
                                     
-                            }
+    //                         }
 
                             
                             
-                            found = false;
-                            target.addEventListener('mouseenter', (event) => {
-                                createTooltip(featureTagText);
-                                tooltipContent.style.visibility = 'visible';
-                                tooltipContent.style.opacity = '1';
-                            });
+    //                         found = false;
+    //                         target.addEventListener('mouseenter', (event) => {
+    //                             createTooltip(featureTagText);
+    //                             tooltipContent.style.visibility = 'visible';
+    //                             tooltipContent.style.opacity = '1';
+    //                         });
 
-                            target.addEventListener('mouseleave', () => {
+    //                         target.addEventListener('mouseleave', () => {
         
-                                removeTooltip();
-                            });
-                            textDivs.forEach(div => {
+    //                             removeTooltip();
+    //                         });
+    //                         textDivs.forEach(div => {
                                 
-                                div.classList.add('highlight');
-                                //console.log(div.textContent);
-                            });
+    //                             div.classList.add('highlight');
+    //                             //console.log(div.textContent);
+    //                         });
 
 
-                        }else{
-                            currFeatures = [];
-                            featureTagText = '';
-                        }
-                    }   
+    //                     }else{
+    //                         currFeatures = [];
+    //                         featureTagText = '';
+    //                     }
+    //                 }   
 
-                }
-            }
+    //             }
+    //         }
             
-        }
+    //     }
        
         
         
-    })
-    .catch(error => console.error('Error fetching CSV:', error));
+    // })
+    // .catch(error => console.error('Error fetching CSV:', error));
 
     
     
@@ -198,19 +208,19 @@ export function highlightIfNeeded(target)
 
     
 
-    document.addEventListener('mousemove', (event) => {
+    // document.addEventListener('mousemove', (event) => {
 
-        if (!tooltipContent) return;
+    //     if (!tooltipContent) return;
 
-        const tooltipX = event.clientX + 10; // Offset from the cursor
-        const tooltipY = event.clientY + 10;
+    //     const tooltipX = event.clientX + 10; // Offset from the cursor
+    //     const tooltipY = event.clientY + 10;
 
-        tooltipContent.style.left = `${tooltipX + window.scrollX}px`;
-        tooltipContent.style.top = `${tooltipY + window.scrollY}px`;
+    //     tooltipContent.style.left = `${tooltipX + window.scrollX}px`;
+    //     tooltipContent.style.top = `${tooltipY + window.scrollY}px`;
 
         
 
-    });
+    // });
 
     
 }

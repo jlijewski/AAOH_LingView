@@ -145,6 +145,9 @@
       },
       "MW:": {
         "subdivided": false
+      },
+      "Features": {
+        "subdivided": false
       }
     },
     "speaker IDs": {
@@ -158,6 +161,9 @@
       "S3": {
         "name": "Marna Weston",
         "tier": "MW:"
+      },
+      "S4": {
+        "tier": "Features"
       }
     }
   }

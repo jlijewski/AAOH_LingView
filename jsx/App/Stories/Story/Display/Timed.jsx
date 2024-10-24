@@ -97,14 +97,27 @@ export function TimedTextDisplay({ sentences, metadata }) {
 	uniqueTimestamps.sort((a, b) => a - b); // to avoid alphanumeric sorting
 	for (const timestamp of uniqueTimestamps) {
 		const correspondingSentences = timesToSentences[timestamp];
-		output.push(
-			<LabeledTimeBlock
-				key={id.generate()}
-				sentences={correspondingSentences}
-				timestamp={timestamp}
-				metadata={metadata}
-			/>
-		);
+	
+		for (let index = 0; index < correspondingSentences.length; index++) {
+			const element = correspondingSentences[index];
+			if(element.text === "")
+			{
+				correspondingSentences.splice(index,1);
+			}
+			
+		}
+		if(correspondingSentences.length !== 0)
+		{
+		
+			output.push(
+				<LabeledTimeBlock
+					key={id.generate()}
+					sentences={correspondingSentences}
+					timestamp={timestamp}
+					metadata={metadata}
+				/>
+			);
+		}
 	}
 	return <div id="timedTextDisplay">{output}</div>;
 }
